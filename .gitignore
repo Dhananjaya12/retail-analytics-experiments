@@ -1,0 +1,25 @@
+# Environment
+.env
+venv/
+__pycache__/
+*.pyc
+
+# Local-only project notes (not for the public repo)
+CLAUDE.md
+
+# Data
+data/raw/
+data/processed/
+*.csv
+*.parquet
+!data/README.md
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Spark
+spark-warehouse/
+metastore_db/
+
+# OS
+.DS_Store
