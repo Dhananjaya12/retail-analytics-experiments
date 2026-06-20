@@ -6,5 +6,6 @@ scipy>=1.11
 statsmodels>=0.14
 snowflake-connector-python>=3.7
 python-dotenv>=1.0
+jupyter>=1.0
 matplotlib>=3.8
 seaborn>=0.13
