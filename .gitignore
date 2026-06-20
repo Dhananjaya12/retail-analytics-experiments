@@ -17,6 +17,9 @@ data/processed/
 # Notebooks
 .ipynb_checkpoints/
 
+# Generated charts (regenerable build artifacts)
+analytics/**/*.png
+
 # Spark
 spark-warehouse/
 metastore_db/
