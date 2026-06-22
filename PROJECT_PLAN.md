@@ -1,4 +1,4 @@
-# Retail Analytics & Experiments — Project Plan
+﻿# Retail Analytics & Experiments â€” Project Plan
 
 **Status:** Locked scope, ready to build
 **Owner:** Dhananjaya
@@ -13,9 +13,9 @@ Build ONE additional portfolio project that broadens the resume beyond AI/LLM en
 **Target roles this project supports:** AI Engineer, Data Scientist, Data Analyst, Product Analyst, Analytics Engineer, Operations Analyst.
 
 **Explicitly out of scope (cut from the original plan):**
-- No Power BI / dashboarding layer (for now — can be bolted on later without touching anything below)
+- No Power BI / dashboarding layer (for now â€” can be bolted on later without touching anything below)
 - No Decision Science / optimization module (no OR-Tools, no LP, no inventory optimization)
-- No new/novel techniques in Product or Supply Chain modules — standard, established patterns only, taken directly from known reference approaches (cited in Section 9)
+- No new/novel techniques in Product or Supply Chain modules â€” standard, established patterns only, taken directly from known reference approaches (cited in Section 9)
 
 **Final module set:**
 1. Data Foundation (PySpark + SQL + Snowflake)
@@ -32,9 +32,9 @@ Build ONE additional portfolio project that broadens the resume beyond AI/LLM en
 - ~180,000 unique order records
 - 30,000+ unique customer profiles
 - 10,000+ unique products
-- Includes a secondary unstructured clickstream file (tokenized access logs) — usable for funnel-style analysis later if needed
+- Includes a secondary unstructured clickstream file (tokenized access logs) â€” usable for funnel-style analysis later if needed
 
-**Key fields (verify exact names/casing against the file you download — Kaggle mirrors vary slightly):**
+**Key fields (verify exact names/casing against the file you download â€” Kaggle mirrors vary slightly):**
 
 | Category | Fields |
 |---|---|
@@ -45,7 +45,7 @@ Build ONE additional portfolio project that broadens the resume beyond AI/LLM en
 | Financials | `Sales`, `Order Profit Per Order`, `Order Item Discount` (or `Discount Rate`), `Order Item Quantity` |
 | Shipping | `Shipping Mode`, `Days for shipping (real)`, `Days for shipment (scheduled)`, `Late_delivery_risk`, `Delivery Status` |
 
-Why this dataset: it's one real source that natively supports finance, product, and supply-chain–style analysis without needing to stitch together multiple synthetic datasets.
+Why this dataset: it's one real source that natively supports finance, product, and supply-chainâ€“style analysis without needing to stitch together multiple synthetic datasets.
 
 ---
 
@@ -53,22 +53,22 @@ Why this dataset: it's one real source that natively supports finance, product, 
 
 ```
 Raw CSV (Kaggle)
-   │
-   ▼
+   â”‚
+   â–¼
 PySpark: clean, dedupe, fix dtypes, standardize dates/currency/regions
-   │
-   ▼
+   â”‚
+   â–¼
 Star schema design (fact_orders + dim_customer/product/date/region)
-   │
-   ▼
+   â”‚
+   â–¼
 Snowflake: COPY INTO load, SQL views per module
-   │
-   ├──► Product Analytics notebook (Python + SQL)
-   ├──► Supply Chain Analytics notebook (Python + SQL)
-   └──► Experimentation engine (Python: pandas/scipy/statsmodels)
+   â”‚
+   â”œâ”€â”€â–º Product Analytics notebook (Python + SQL)
+   â”œâ”€â”€â–º Supply Chain Analytics notebook (Python + SQL)
+   â””â”€â”€â–º Experimentation engine (Python: pandas/scipy/statsmodels)
 ```
 
-No BI tool in this version. Outputs are SQL views + Python notebooks with plots (matplotlib/seaborn is enough — no new viz tooling needed for this scope).
+No BI tool in this version. Outputs are SQL views + Python notebooks with plots (matplotlib/seaborn is enough â€” no new viz tooling needed for this scope).
 
 ---
 
@@ -85,11 +85,11 @@ No BI tool in this version. Outputs are SQL views + Python notebooks with plots 
 
 ---
 
-## 5. Module 1 — Data Foundation (PySpark + SQL + Snowflake)
+## 5. Module 1 â€” Data Foundation (PySpark + SQL + Snowflake)
 
 ### 5.1 Cleaning tasks (PySpark, local)
 - Drop/flag duplicate `Order Id` + `Order Item Id` combinations
-- Fix dtypes: dates → proper date type, currency/sales fields → decimal
+- Fix dtypes: dates â†’ proper date type, currency/sales fields â†’ decimal
 - Standardize categorical text (region/country casing, trim whitespace)
 - Handle nulls: decide drop vs. impute per column (document the decision per field)
 - Derive `first_order_date` per customer (needed later for cohort analysis)
@@ -98,13 +98,13 @@ No BI tool in this version. Outputs are SQL views + Python notebooks with plots 
 
 ```
 fact_orders
-  ├── customer_id  → dim_customer
-  ├── product_id   → dim_product
-  ├── order_date   → dim_date
-  └── region_id    → dim_region
+  â”œâ”€â”€ customer_id  â†’ dim_customer
+  â”œâ”€â”€ product_id   â†’ dim_product
+  â”œâ”€â”€ order_date   â†’ dim_date
+  â””â”€â”€ region_id    â†’ dim_region
 ```
 
-### 5.3 DDL (Snowflake) — starting sketch, adjust types once you've profiled the real file
+### 5.3 DDL (Snowflake) â€” starting sketch, adjust types once you've profiled the real file
 
 ```sql
 CREATE TABLE dim_customer (
@@ -173,13 +173,13 @@ CREATE TABLE fact_orders (
 
 ---
 
-## 6. Module 2 — Product Analytics (standard techniques)
+## 6. Module 2 â€” Product Analytics (standard techniques)
 
 ### 6.1 RFM Segmentation
 - **Recency** = days since customer's most recent order (relative to dataset max date)
 - **Frequency** = count of distinct orders per customer
 - **Monetary** = sum of sales per customer
-- Score each dimension into quintiles (1–5), combine into an RFM segment label (e.g., Champions, At Risk, Lost, Loyal)
+- Score each dimension into quintiles (1â€“5), combine into an RFM segment label (e.g., Champions, At Risk, Lost, Loyal)
 - Implementation: SQL window functions (`NTILE(5)`) + a Python notebook for segment profiling/visualization
 
 ### 6.2 Cohort & Retention Analysis
@@ -188,19 +188,19 @@ CREATE TABLE fact_orders (
 - Output: cohort retention matrix/heatmap (standard SaaS-style cohort table, applied to retail)
 
 ### 6.3 Churn Flag
-- Define churn = no order in the last N days (e.g. 90) relative to dataset max date — binary flag
-- Optional: simple logistic regression using RFM features + segment + region to explain churn drivers (explanatory, not a production model — the point is demonstrating the analytics pattern)
+- Define churn = no order in the last N days (e.g. 90) relative to dataset max date â€” binary flag
+- Optional: simple logistic regression using RFM features + segment + region to explain churn drivers (explanatory, not a production model â€” the point is demonstrating the analytics pattern)
 
 **Reference pattern:** combines churn classification + clustering/segmentation in one module, following the same structure used in standard churn-segmentation portfolio projects (e.g., churn classifier + K-means segmentation paired together).
 
 ---
 
-## 7. Module 3 — Supply Chain Analytics (standard techniques)
+## 7. Module 3 â€” Supply Chain Analytics (standard techniques)
 
 ### 7.1 Demand Analysis
 - Units sold by product/category/region, monthly and weekly
 - Rolling averages, month-over-month % change
-- No forecasting model required unless you want the keyword — simple trend analysis is sufficient for this scope
+- No forecasting model required unless you want the keyword â€” simple trend analysis is sufficient for this scope
 
 ### 7.2 Late Delivery Analysis
 - Late delivery rate = `COUNT(late_delivery_risk = 1) / COUNT(*)`, grouped by region, shipping mode, category
@@ -210,38 +210,45 @@ CREATE TABLE fact_orders (
 - Since this dataset has no live inventory/stock levels, fill rate is approximated as **on-time fulfillment rate** = `1 - late delivery rate`
 - Lead time = `AVG(days_for_shipping_real)` vs. `AVG(days_for_shipment_scheduled)`, plus variance between the two (a measure of forecast/promise accuracy)
 
-**Reference pattern:** descriptive supply-chain analytics (demand, delivery performance, lead time) — deliberately excludes prescriptive/optimization techniques per scope decision.
+### 7.4 Demand Forecasting (approved extension)
+- Forecast weekly units sold for the highest-volume product categories
+- Compare a 52-week seasonal-naive baseline with additive Holt-Winters
+- Use a time-based holdout (final 12 observed weeks), never a random split
+- Evaluate with MAE and WAPE; select the lower-WAPE method per category
+- Clearly disclose the late-2017 volume shift and position forecasts as a modeling demonstration, not production inventory guidance
+
+**Reference pattern:** descriptive supply-chain analytics plus one standard, explainable forecasting extension. Prescriptive optimization remains excluded.
 
 ---
 
-## 8. Module 4 — Experimentation (A/B Testing + CUPED)
+## 8. Module 4 â€” Experimentation (A/B Testing + CUPED)
 
-This is the most technically distinct module — keep it rigorous and well-documented since it's the differentiator.
+This is the most technically distinct module â€” keep it rigorous and well-documented since it's the differentiator.
 
 ### 8.1 Treatment/Control Design
-Two viable approaches — recommend doing **both**, since (A) proves your engine works correctly and (B) shows real-world judgment:
+Two viable approaches â€” recommend doing **both**, since (A) proves your engine works correctly and (B) shows real-world judgment:
 
-- **(A) Synthetic, ground-truth-known split (primary):** Randomly assign existing customers/orders 50/50 into Group A / Group B. Inject a known synthetic effect into Group B (e.g., simulate a +5% uplift in order value for a "new discount strategy"). This lets you verify your testing engine correctly detects a known, planted effect — the standard way to validate an experimentation pipeline without live randomized data.
-- **(B) Quasi-experimental, real data (secondary):** Compare existing real segments (e.g., `Customer Segment` = Corporate vs. Consumer) on a metric of interest. Be explicit in your write-up that this is observational, not causal — correlation only, no random assignment.
+- **(A) Synthetic, ground-truth-known split (primary):** Randomly assign existing customers/orders 50/50 into Group A / Group B. Inject a known synthetic effect into Group B (e.g., simulate a +5% uplift in order value for a "new discount strategy"). This lets you verify your testing engine correctly detects a known, planted effect â€” the standard way to validate an experimentation pipeline without live randomized data.
+- **(B) Quasi-experimental, real data (secondary):** Compare existing real segments (e.g., `Customer Segment` = Corporate vs. Consumer) on a metric of interest. Be explicit in your write-up that this is observational, not causal â€” correlation only, no random assignment.
 
 ### 8.2 Core Statistical Test
-- Binary/conversion-style metric (e.g., repeat-purchase yes/no) → two-proportion z-test or chi-square test of independence
-- Continuous metric (e.g., order value) → Welch's t-test (does not assume equal variances)
+- Binary/conversion-style metric (e.g., repeat-purchase yes/no) â†’ two-proportion z-test or chi-square test of independence
+- Continuous metric (e.g., order value) â†’ Welch's t-test (does not assume equal variances)
 - Report: effect size, p-value, 95% confidence interval
 
 ### 8.3 CUPED Variance Reduction
 CUPED (Controlled-experiment Using Pre-Experiment Data) reduces variance using a pre-period covariate correlated with the outcome:
 
 ```
-Y_cuped = Y - θ × (X - X̄)
-θ = Cov(Y, X) / Var(X)
+Y_cuped = Y - Î¸ Ã— (X - XÌ„)
+Î¸ = Cov(Y, X) / Var(X)
 ```
 
-Where `X` = customer's historical average order value *before* the experiment window, `Y` = the metric during the experiment window. Report variance before vs. after CUPED adjustment to show why it matters — this is the "additional relevant technique" paired with the core A/B test.
+Where `X` = customer's historical average order value *before* the experiment window, `Y` = the metric during the experiment window. Report variance before vs. after CUPED adjustment to show why it matters â€” this is the "additional relevant technique" paired with the core A/B test.
 
 ### 8.4 Sample Size / Power
 - Use `statsmodels.stats.power` to calculate required sample size for a given effect size, alpha = 0.05, power = 0.8
-- Compare required N to the actual customer count available in the dataset — discuss whether the dataset has enough power to detect the effect size you're testing for
+- Compare required N to the actual customer count available in the dataset â€” discuss whether the dataset has enough power to detect the effect size you're testing for
 
 **Reference pattern:** combines a standard two-sample hypothesis test with CUPED variance reduction, following the same structure used in advanced A/B-testing toolkits (CUPED + significance testing paired together).
 
@@ -251,45 +258,45 @@ Where `X` = customer's historical average order value *before* the experiment wi
 
 ```
 retail-analytics-experiments/
-├── data/                    # download script + raw/processed (gitignored)
-├── etl/                     # pyspark transforms
-├── warehouse/                # Snowflake DDL + SQL views
-│   ├── schema.sql
-│   ├── product_views.sql
-│   └── supply_chain_views.sql
-├── analytics/
-│   ├── product/              # RFM, cohort, churn notebooks
-│   └── supply_chain/         # demand, delivery, lead time notebooks
-├── experimentation/          # A/B test engine + CUPED
-│   ├── synthetic_split.py
-│   ├── ab_test.py
-│   └── cuped.py
-├── README.md
-└── requirements.txt
+â”œâ”€â”€ data/                    # download script + raw/processed (gitignored)
+â”œâ”€â”€ etl/                     # pyspark transforms
+â”œâ”€â”€ warehouse/                # Snowflake DDL + SQL views
+â”‚   â”œâ”€â”€ schema.sql
+â”‚   â”œâ”€â”€ product_views.sql
+â”‚   â””â”€â”€ supply_chain_views.sql
+â”œâ”€â”€ analytics/
+â”‚   â”œâ”€â”€ product/              # RFM, cohort, churn notebooks
+â”‚   â””â”€â”€ supply_chain/         # demand, delivery, lead time notebooks
+â”œâ”€â”€ experimentation/          # A/B test engine + CUPED
+â”‚   â”œâ”€â”€ synthetic_split.py
+â”‚   â”œâ”€â”€ ab_test.py
+â”‚   â””â”€â”€ cuped.py
+â”œâ”€â”€ README.md
+â””â”€â”€ requirements.txt
 ```
 
 ---
 
 ## 10. Build Order
 
-1. **Data ingestion & cleaning** — PySpark job, local
-2. **Star schema + Snowflake load** — DDL, COPY INTO, validation
-3. **Base SQL views** — sales, profit, delivery, customer aggregates
-4. **Product analytics notebook** — RFM, cohort, churn
-5. **Supply chain analytics notebook** — demand, late delivery, lead time
-6. **Experimentation module** — synthetic split, core test, CUPED, power analysis
+1. **Data ingestion & cleaning** â€” PySpark job, local
+2. **Star schema + Snowflake load** â€” DDL, COPY INTO, validation
+3. **Base SQL views** â€” sales, profit, delivery, customer aggregates
+4. **Product analytics notebook** â€” RFM, cohort, churn
+5. **Supply chain analytics notebook** â€” demand, late delivery, lead time
+6. **Experimentation module** â€” synthetic split, core test, CUPED, power analysis
 7. **README + ERD diagram + push to GitHub**
 
-**Rough estimate:** 3–4 weeks at a steady pace. Steps 1–3 (foundation) are highest leverage since every later module depends on them — front-load effort there.
+**Rough estimate:** 3â€“4 weeks at a steady pace. Steps 1â€“3 (foundation) are highest leverage since every later module depends on them â€” front-load effort there.
 
 ---
 
 ## 11. Snowflake Trial Strategy
 
 - Snowflake trial = 30 days, $400 credit, no permanent free tier
-- **Do all local cleaning/schema design (Section 5.1–5.3) before starting the trial clock** — don't burn trial days on local work
+- **Do all local cleaning/schema design (Section 5.1â€“5.3) before starting the trial clock** â€” don't burn trial days on local work
 - Start the trial only when ready to load data and start running SQL
-- Push every DDL/SQL/PySpark script to GitHub continuously — this is what persists and what reviewers actually look at, not the live warehouse
+- Push every DDL/SQL/PySpark script to GitHub continuously â€” this is what persists and what reviewers actually look at, not the live warehouse
 - Once the trial nears expiry, take screenshots/recordings of any live queries you want to reference later (e.g., for interview walkthroughs)
 
 ---
@@ -303,7 +310,7 @@ retail-analytics-experiments/
 | Supply Chain Analytics | Operations Analyst, Data Analyst |
 | Experimentation (A/B + CUPED) | Data Scientist, Product Analyst |
 
-Honest note: with the Decision Science module removed, this project no longer directly targets "Decision Scientist" roles — the Experimentation module is now your strongest differentiator instead.
+Honest note: with the Decision Science module removed, this project no longer directly targets "Decision Scientist" roles â€” the Experimentation module is now your strongest differentiator instead.
 
 ---
 
@@ -313,4 +320,5 @@ Honest note: with the Decision Science module removed, this project no longer di
 - [ ] Write PySpark cleaning script
 - [ ] Finalize and run star schema DDL
 - [ ] Start Snowflake trial, load data
-- [ ] Build Module 2 → 3 → 4 in order
+- [ ] Build Module 2 â†’ 3 â†’ 4 in order
+

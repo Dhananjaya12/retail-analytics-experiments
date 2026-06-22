@@ -12,7 +12,7 @@ This project deliberately excludes some things from the original brainstorm. Don
 - **No Power BI / dashboarding layer** â€” outputs are SQL views + Python notebooks only
 - **No optimization / decision-science module** â€” no OR-Tools, no linear programming, no inventory optimization
 - **Product Analytics module**: standard/established techniques only (RFM, cohort/retention, churn flag) â€” no novel methods
-- **Supply Chain Analytics module**: descriptive only (demand, late delivery rate, lead time) â€” not prescriptive/optimization
+- **Supply Chain Analytics module**: descriptive demand/delivery/lead-time analysis plus one standard weekly category-demand forecast; no prescriptive optimization
 - **Experimentation module**: A/B testing + CUPED â€” this is the one module that should go deep, not broad
 
 ## Tech stack
@@ -69,4 +69,5 @@ When a step is finished, check it off here so future sessions know where things 
 ## Snowflake note
 
 Trial account (30 days, $400 credit, no permanent free tier). Don't burn trial time on local-only work â€” local cleaning/schema design should happen before the Snowflake connection is first used. All SQL/DDL must live in `warehouse/` regardless of whether the live warehouse is still active, since that's what persists.
+
 
