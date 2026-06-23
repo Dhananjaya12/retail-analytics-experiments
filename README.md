@@ -115,7 +115,7 @@ erDiagram
 - **Retention:** mature cohorts generally stabilized around **11–17% monthly activity** after acquisition.
 - **Churn:** created a transparent 90-day inactivity flag and documented why frequency separation and feature collinearity initially broke the explanatory regression.
 
-Walkthroughs: [plain-English guide](analytics/product/MODULE2_EXPLAINED.md) · [analysis notebook](analytics/product/module2_walkthrough.ipynb)
+Walkthrough: [product analytics notebook](analytics/product/module2_walkthrough.ipynb)
 
 ### Supply-chain analytics
 
@@ -146,7 +146,7 @@ The five highest-volume categories were evaluated using the final 12 weeks as an
 
 Choosing the simple baseline for three categories is intentional: model selection is based on unseen data, not model complexity.
 
-Walkthroughs: [plain-English guide](analytics/supply_chain/MODULE3_EXPLAINED.md) · [analysis notebook](analytics/supply_chain/module3_walkthrough.ipynb)
+Walkthrough: [supply-chain analytics notebook](analytics/supply_chain/module3_walkthrough.ipynb)
 
 ### Experimentation and CUPED
 
@@ -168,7 +168,7 @@ A reproducible 50/50 customer experiment injected known effects into treatment, 
 
 The module also includes a Corporate-vs-Consumer comparison explicitly labelled **observational, not causal**.
 
-Walkthroughs: [beginner explanation](experimentation/MODULE4_EXPLAINED.md) · [analysis notebook](experimentation/module4_walkthrough.ipynb)
+Walkthrough: [experimentation notebook](experimentation/module4_walkthrough.ipynb)
 
 ## Technology choices
 
@@ -237,7 +237,7 @@ Create the warehouse tables and views from `warehouse/`, then load the dimension
 python warehouse/load_to_snowflake.py
 ```
 
-Detailed setup: [warehouse/README.md](warehouse/README.md)
+Snowflake DDL, loading code, and analytical views are stored under `warehouse/`.
 
 ### 5. Run the analyses
 
@@ -268,4 +268,3 @@ Generated charts and CSV outputs are intentionally gitignored and can be reprodu
 
 This repository is designed for **Analytics Engineer, Data Scientist, Product Analyst, Supply Chain Analyst, and Data Analyst** portfolios. It demonstrates the ability to move beyond isolated modeling and connect data engineering, warehouse design, business analysis, forecasting, and experimentation in one reproducible system.
 
-For the full scope and design rationale, see [PROJECT_PLAN.md](PROJECT_PLAN.md).

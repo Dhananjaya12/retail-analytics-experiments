@@ -30,4 +30,14 @@ metastore_db/
 # Generated experimentation outputs
 experimentation/*.csv
 experimentation/*.png
+# Local project planning and explanation documents
+AGENTS.md
+PROJECT_PLAN.md
+**/MODULE*_EXPLAINED.md
+analytics/product/README.md
+analytics/supply_chain/README.md
+data/README.md
+etl/README.md
+experimentation/README.md
+warehouse/README.md
 
