@@ -62,12 +62,10 @@ retail-analytics-experiments/
 - [x] Product analytics (RFM, cohort, churn)
 - [x] Supply chain analytics (demand, delivery, lead time)
 - [ ] Experimentation module (synthetic split, A/B test, CUPED)
-- [ ] README + ERD diagram
+- [x] README + ERD diagram
 
 When a step is finished, check it off here so future sessions know where things stand.
 
 ## Snowflake note
 
 Trial account (30 days, $400 credit, no permanent free tier). Don't burn trial time on local-only work â€” local cleaning/schema design should happen before the Snowflake connection is first used. All SQL/DDL must live in `warehouse/` regardless of whether the live warehouse is still active, since that's what persists.
-
-
