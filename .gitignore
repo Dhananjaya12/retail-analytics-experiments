@@ -1,4 +1,4 @@
-# Environment
+﻿# Environment
 .env
 venv/
 __pycache__/
@@ -26,3 +26,8 @@ metastore_db/
 
 # OS
 .DS_Store
+
+# Generated experimentation outputs
+experimentation/*.csv
+experimentation/*.png
+
